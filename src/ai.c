@@ -5,10 +5,12 @@
 int minimax(int depth, bool isMaximizingPlayer) {
     int score = evaluate_board();
     
-    if (score == 10 || score == -10) {
-        return score;
+    if (score == 10) {
+        return score -depth;
     }
-    
+    else if(score == -10){
+        return score+depth;
+    }
     if (!are_moves_left()) {
         return 0;
     }
