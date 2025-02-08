@@ -1,6 +1,5 @@
 #include <main.h>
-char Board[9] = {0};
-GameState Gamestate = {0};
+
 void init_window(void) {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "TicTacToe");
     SetTargetFPS(60);
