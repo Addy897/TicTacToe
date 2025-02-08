@@ -14,9 +14,22 @@ void play_computer(void) {
         }
     }
 }
-
+void reset_game(void) {
+    for (int i = 0; i < 9; i++) {
+        
+        Board[i] = EMPTY;
+        
+    }
+    Gamestate.gameover = false;
+    Gamestate.turn = X;  
+}
 void read_input(void) {
     if (Gamestate.gameover) {
+        Vector2 mousePos = GetMousePosition();
+        startOver.isSelected = CheckCollisionPointRec(mousePos, startOver.rec);
+        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && startOver.isSelected) {
+            reset_game();
+        }
         return;
     }
     

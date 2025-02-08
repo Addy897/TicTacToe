@@ -1,4 +1,10 @@
 #include <main.h>
+void init_gui(){
+    int width=150;
+    int height=50;
+    Rectangle rec= (Rectangle){.height=height,.width=width,.x=SCREEN_WIDTH/2-width/2,.y=SCREEN_WIDTH/2-height/2};
+    startOver = (Button){.rec=rec,.text="Play Again",.color=GRAY, .hoverColor=DARKGRAY,.isSelected=false};
+}
 void draw_board(void) {
     float thickness = 2.0f;
     
