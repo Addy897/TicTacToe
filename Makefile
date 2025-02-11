@@ -1,9 +1,9 @@
-RAYLIB_SRC_PATH=./raylib/
-RAYLIB_LIB_PATH=./raylib/
+RAYLIB_SRC_PATH=./include/
+RAYLIB_LIB_PATH=./lib/
 
 
 CC=gcc
-CFLAGS=-I$(RAYLIB_SRC_PATH) -I./includes -L$(RAYLIB_LIB_PATH) -lraylib -lgdi32 -lwinmm -lm -Ofast
+CFLAGS=-I$(RAYLIB_SRC_PATH)  -L$(RAYLIB_LIB_PATH) -lraylib -lgdi32 -lwinmm -lm -Ofast
 
 
 OBJECTS_DIR=obj/
