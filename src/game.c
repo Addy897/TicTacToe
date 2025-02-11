@@ -3,6 +3,7 @@
 void read_gamestate(void) {
     if (check_winner() || is_board_full()) {
         Gamestate.gameover = true;
+        
     }
 }
 void play_computer(void) {
@@ -14,6 +15,10 @@ void play_computer(void) {
         }
     }
 }
+void back_to_menu(void){
+    reset_game();
+    screen.currentScreenNo=0;
+}
 void reset_game(void) {
     for (int i = 0; i < 9; i++) {
         
@@ -21,19 +26,47 @@ void reset_game(void) {
         
     }
     Gamestate.gameover = false;
+    Gamestate.won=EMPTY;
     Gamestate.turn = X;  
 }
+void play_as_x(){
+    Gamestate.computer=O;
+    screen.currentScreenNo=1;
+}
+
+void play_as_o(){
+    Gamestate.computer=X;
+    screen.currentScreenNo=1;
+}
 void read_input(void) {
-    if (Gamestate.gameover) {
-        Vector2 mousePos = GetMousePosition();
-        startOver.isSelected = CheckCollisionPointRec(mousePos, startOver.rec);
-        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && startOver.isSelected) {
-            reset_game();
+    if(!screen.currentScreenNo){
+        for (int i = 0; i < 3; i++)
+        {
+            Vector2 mousePos = GetMousePosition();
+            startMenuButton[i].isSelected = CheckCollisionPointRec(mousePos, startMenuButton[i].rec);
+            if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && startMenuButton[i].isSelected) {
+                startMenuButton[i].onClick();
+            }
+        }
+        return;
+        
+    }
+    if (screen.currentScreenNo && Gamestate.gameover) {
+        for(int i=0;i<2;i++){
+            Vector2 mousePos = GetMousePosition();
+            gameMenuButton[i].isSelected = CheckCollisionPointRec(mousePos, gameMenuButton[i].rec);
+            if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && gameMenuButton[i].isSelected) {
+                gameMenuButton[i].onClick();
+                return;
+
+            }
         }
         return;
     }
-    
-    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+    if(Gamestate.computer==Gamestate.turn){
+        return;
+    }
+    if (screen.currentScreenNo&& IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
         Vector2 mousePos = GetMousePosition();
         int col = mousePos.x / COL_WIDTH;
         int row = mousePos.y / COL_HEIGHT;

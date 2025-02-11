@@ -2,7 +2,7 @@
 bool check_winner(void) {
     
     for (int i = 0; i < 3; i++) {
-        if (Board[i*3] && Board[i*3] == Board[i*3 + 1] && Board[i*3] == Board[i*3 + 2]) {
+        if (Board[i*3] && Board[i*3] == Board[i*3 + 1] && Board[i*3 + 1] == Board[i*3 + 2]) {
             Gamestate.won = Board[i*3];
             float y = (i * COL_HEIGHT) + COL_HEIGHT / 2;
             Gamestate.winnerLineStart = (Vector2){0, y};
@@ -13,7 +13,7 @@ bool check_winner(void) {
     
     
     for (int i = 0; i < 3; i++) {
-        if (Board[i] && Board[i] == Board[i + 3] && Board[i] == Board[i + 6]) {
+        if (Board[i] && Board[i] == Board[i + 3] && Board[i + 3] == Board[i + 6]) {
             Gamestate.won = Board[i];
             float x = (i * COL_WIDTH) + COL_WIDTH / 2;
             Gamestate.winnerLineStart = (Vector2){x, 0};
@@ -23,14 +23,14 @@ bool check_winner(void) {
     }
     
     
-    if (Board[0] && Board[0] == Board[4] && Board[0] == Board[8]) {
+    if (Board[0] && Board[0] == Board[4] && Board[4] == Board[8]) {
         Gamestate.won = Board[0];
         Gamestate.winnerLineStart = (Vector2){0, 0};
         Gamestate.winnerLineEnd = (Vector2){SCREEN_WIDTH, SCREEN_HEIGHT};
         return true;
     }
     
-    if (Board[2] && Board[2] == Board[4] && Board[2] == Board[6]) {
+    if (Board[2] && Board[2] == Board[4] && Board[4] == Board[6]) {
         Gamestate.won = Board[2];
         Gamestate.winnerLineStart = (Vector2){SCREEN_WIDTH, 0};
         Gamestate.winnerLineEnd = (Vector2){0, SCREEN_HEIGHT};
@@ -46,6 +46,7 @@ bool is_board_full(void) {
             return false;
         }
     }
+    Gamestate.won=EMPTY;
     return true;
 }
 
